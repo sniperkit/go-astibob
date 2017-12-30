@@ -15,7 +15,7 @@ let base = {
         asticode.loader.show();
         base.sendHttp("/api/references", "GET", function(data) {
             // Init the web socket
-            base.initWebSocket(webSocketFunc, data.ws_ping_period, function() {
+            base.initWebSocket(webSocketFunc, data.ws_url, data.ws_ping_period, function() {
                 // Get bob's information
                 base.sendHttp("/api/bob", "GET", function(data) {
                     // Init menu
@@ -67,9 +67,9 @@ let base = {
             </div>`;
         }
     },
-    initWebSocket: function(webSocketFunc, pingPeriod, pageFunc) {
+    initWebSocket: function(webSocketFunc, url, pingPeriod, pageFunc) {
         // Init websocket
-        base.ws = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port +  "/websocket");
+        base.ws = new WebSocket(url);
 
         // Declare functions
         let intervalPing;
